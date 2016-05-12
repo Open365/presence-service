@@ -1,0 +1,41 @@
+{
+  "name": "presence-service",
+  "version": "0.0.250",
+  "description": "Service that check if a user is alive",
+  "main": "eyeos-presence-service.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --ui tdd ./src/test"
+  },
+  "author": "eyeOS",
+  "homepage": "http://www.eyeos.com/",
+  "dependencies": {
+    "eyeos-restutils": "*",
+    "amqp": "~0.2.0",
+    "bus-expectation": "*",
+    "eyeos-amqp": "*",
+    "eyeos-mongo": "*",
+    "eyeos-consume-service": "*",
+    "eyeos-service-ready-notify": "*",
+    "eyeos-stomp": "*",
+    "eyeos-usernotification": "*",
+    "log2out": "*",
+    "eyeos-hooks": "*"
+  },
+  "devDependencies": {
+    "chai": "1.8.0",
+    "sinon": "1.7.3",
+    "mocha": "1.20.1",
+    "grunt": "0.4.5",
+    "grunt-init": "0.2.1",
+    "grunt-shell": "0.7.0",
+    "grunt-mocha-test": "0.11.0",
+    "eyeos-hippie": "*",
+    "eyeos-gruntfile": "*",
+    "eyeos-component-tests": "*"
+  },
+  "microservices": [
+    "mongo.service.consul:27017",
+    "rabbit.service.consul:5672"
+  ],
+  "license": "AGPL-3.0"
+}
