@@ -1,6 +1,6 @@
 {
   "name": "presence-service",
-  "version": "0.0.250",
+  "version": "0.0.251",
   "description": "Service that check if a user is alive",
   "main": "eyeos-presence-service.js",
   "scripts": {
