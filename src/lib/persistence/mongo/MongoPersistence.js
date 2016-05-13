@@ -47,7 +47,7 @@ MongoPersistence.prototype.find = function(data, responseFinisher) {
 MongoPersistence.prototype.save = function (data, responseFinisher) {
 	this.logger.debug('save: ', data);
 	var collection = getCollection.call(this),
-		query = { username: data.username },
+		query = { username: data.username , domain: data.domain },
 		options = { upsert: true };	//  creates a new document when no document matches the query criteria.
 	collection.update(query, {$set: data}, options, this.persistenceCallback.updateDone.bind(this.persistenceCallback, responseFinisher, data));
 };

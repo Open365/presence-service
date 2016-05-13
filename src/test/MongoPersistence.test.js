@@ -25,13 +25,14 @@ var settings = require('../settings-test');
 
 suite('MongoPersistence Suite', function () {
 	var sut;
-	var username, timestamp, data, persistanceCallback, docs, response;
+	var username, domain, timestamp, data, persistanceCallback, docs, response;
 	var mongoDriverSingleton, mongoDriver, collection, collectionFind;
 
 	setup(function () {
 		persistanceCallback = new MongoPersistenceCallback();
 		collectionFind = {toArray: function() {}};
 		username = "fake username";
+		domain = "fake domain";
 		timestamp = "fake timestamp";
 		collection = { update: function(){}, remove: function(){}, find: function() { return collectionFind} };
 		mongoDriver = { getCollection: function(){ return collection; } };
@@ -86,7 +87,7 @@ suite('MongoPersistence Suite', function () {
 
 	suite('#save', function () {
 		setup(function () {
-			data = { username: username, timestamp: timestamp };
+			data = { username: username, domain: domain, timestamp: timestamp };
 		});
 		function execute () {
 			sut.save(data);
@@ -109,7 +110,7 @@ suite('MongoPersistence Suite', function () {
 			execute();
 		}));
 		test('calls to collection.update', sinon.test(function () {
-			var query = { username: username },
+			var query = { username: username, domain: domain },
 				options = { upsert: true };
 			this.mock(collection)
 				.expects('update')
