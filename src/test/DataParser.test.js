@@ -26,7 +26,8 @@ suite('DataParser Suite', function () {
 	var timestamp, clock;
 	var username = 'fake username',
 		password = 'fake password',
-		card = '{"username":"fake username"}',
+		domain = 'fake domain',
+		card = '{"username":"fake username", "domain":"fake domain"}',
 		signature = 'fake signature',
 		data = {
 			card: card,
@@ -53,9 +54,10 @@ suite('DataParser Suite', function () {
 			var expected = {
 				username: username,
 				password: password,
+				domain: domain,
 				loginTs: timestamp,
 				signature: signature,
-				card: '{"username":"fake username"}'
+				card: '{"username":"fake username", "domain":"fake domain"}'
 			};
 			assert.deepEqual(execute(), expected);
 		});
@@ -69,9 +71,10 @@ suite('DataParser Suite', function () {
 		test('returns data to save', function () {
 			var expected = {
 				username: username,
+				domain: domain,
 				lastPingTs: timestamp,
 				signature: signature,
-				card: '{"username":"fake username"}'
+				card: '{"username":"fake username", "domain":"fake domain"}'
 			};
 			assert.deepEqual(execute(), expected);
 		});
@@ -84,7 +87,8 @@ suite('DataParser Suite', function () {
 
 		test('return data to delete', function () {
 			var expected = {
-				username: username
+				username: username,
+				domain: domain
 			};
 			assert.deepEqual(execute(), expected);
 		});

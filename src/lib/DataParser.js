@@ -38,6 +38,7 @@ DataParser.prototype.getLoginData = function(data) {
 	return {
 		username: card.username,
 		password: data.document.password,
+		domain: card.domain,
 		loginTs: new Date().getTime(),
 		card: data.card,
 		signature: data.signature
@@ -48,6 +49,7 @@ DataParser.prototype.getPingData = function (data) {
 	var card = execute(data);
 	return {
 		username: card.username,
+		domain: card.domain,
 		lastPingTs: new Date().getTime(),
 		card: data.card,
 		signature: data.signature
@@ -57,7 +59,8 @@ DataParser.prototype.getPingData = function (data) {
 DataParser.prototype.getDeleteData = function (data) {
 	var card = execute(data);
 	return {
-		username: card.username
+		username: card.username,
+		domain: card.domain
 	}
 };
 

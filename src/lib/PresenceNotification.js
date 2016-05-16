@@ -31,10 +31,14 @@ var PresenceNotification = function (notificationController, injectedHttps) {
 };
 
 PresenceNotification.prototype.notifyOnlineUser = function (user, headers, domain) {
+    this.logger.debug("user online: '" + user + "'");
+    this.logger.debug("Send notification to contacts...");
     this._notify(user, 'onlineUser', headers, domain);
 };
 
 PresenceNotification.prototype.notifyOfflineUser = function (user, headers, domain) {
+    this.logger.debug("user offline: '" + user + "'");
+    this.logger.debug("Send notification to contacts...");
     this._notify(user, 'offlineUser', headers, domain);
 };
 
@@ -42,6 +46,7 @@ PresenceNotification.prototype._notify = function (user, type, headers, domain) 
     var self = this;
     //Getting contacts from principal service public API in order to not duplicate logic here
     //Pending to create a library shared between presence and principal services
+    this.logger.debug("requesting other users who have me as a contact...");
     this.https.request({
         host: 'proxy.service.consul',
         path: '/principalService/v1/principals/contacts/me',
@@ -63,12 +68,8 @@ PresenceNotification.prototype._notify = function (user, type, headers, domain) 
                 var usersReceived = [];
                 for(var i= 0;i<users.length;i++) {
                     var username = users[i].principalId;
-                    if (!domain) {
-                        usersReceived.push(username);
-                    }
-                    else {
-                        usersReceived.push(username + '@' + domain);
-                    }
+                    usersReceived.push(username + '@' + domain);
+                    self.logger.debug("notifying the following users:", users);
                 }
                 var notification = new Notification(type, JSON.stringify({user: user}));
                 self.notificationController.notify(notification, usersReceived, true);

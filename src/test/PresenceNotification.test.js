@@ -24,7 +24,7 @@ var PresenceNotification = require('../lib/PresenceNotification');
 var NotificationController = require('eyeos-usernotification').NotificationController;
 
 suite('PresenceNotificationTest', function () {
-    var sut, users, notificationController, notifyStub, https, requestStub, response;
+    var sut, users, domain, notificationController, notifyStub, https, requestStub, response;
 
     setup(function () {
         users = [
@@ -34,6 +34,7 @@ suite('PresenceNotificationTest', function () {
         https = {
             request: function() {}
         };
+        domain = "domain";
         response = new Event();
         requestStub = sinon.stub(https, 'request', function(options, callback) {
             callback(response);
@@ -54,13 +55,13 @@ suite('PresenceNotificationTest', function () {
         }));
 
         test('Should send the notifications to the correct users', sinon.test(function() {
-            sut.notifyOnlineUser('testuser');
+            sut.notifyOnlineUser('testuser', '', domain);
             response.emit('data', JSON.stringify(users));
             response.emit('end');
             var notifiedUsers = notifyStub.args[0][1];
             for(var i =0;i<notifiedUsers.length;i++) {
                 var username = notifiedUsers[i];
-                assert.equal(username, users[i].principalId, "Failed to notify the correct users");
+                assert.equal(username, users[i].principalId+"@"+domain, "Failed to notify the correct users");
             }
         }));
 
@@ -83,13 +84,13 @@ suite('PresenceNotificationTest', function () {
         }));
 
         test('Should send the notifications to the correct users', sinon.test(function() {
-            sut.notifyOfflineUser('testuser');
+            sut.notifyOfflineUser('testuser', '', domain);
             response.emit('data', JSON.stringify(users));
             response.emit('end');
             var notifiedUsers = notifyStub.args[0][1];
             for(var i =0;i<notifiedUsers.length;i++) {
                 var username = notifiedUsers[i];
-                assert.equal(username, users[i].principalId, "Failed to notify the offline users");
+                assert.equal(username, users[i].principalId+"@"+domain, "Failed to notify the offline users");
             }
         }));
 
