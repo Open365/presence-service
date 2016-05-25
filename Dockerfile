@@ -20,8 +20,6 @@ WORKDIR ${InstallationDir}
 
 CMD eyeos-run-server --serf /var/service/src/eyeos-presence-service.js
 
-RUN mkdir -p ${InstallationDir}/src/ && touch ${InstallationDir}src/presence-service-installed.js
-
 COPY . ${InstallationDir}
 
 RUN npm install --verbose && \
