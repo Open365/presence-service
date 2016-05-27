@@ -1,16 +1,3 @@
-#############################################################
-# DOCKERFILE FOR PRESENCE SERVICE
-#############################################################
-# DEPENDENCIES
-# * NodeJS (provided)
-#############################################################
-# BUILD FLOW
-# 3. Copy the service to the docker at /var/service
-# 4. Run the default installation
-# 5. Add the docker-startup.sh file which knows how to start
-#    the service
-#############################################################
-
 FROM docker-registry.eyeosbcn.com/alpine6-node-base
 
 ENV WHATAMI presenceService
