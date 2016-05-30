@@ -11,15 +11,13 @@
   "dependencies": {
     "eyeos-restutils": "*",
     "amqp": "~0.2.0",
-    "bus-expectation": "*",
     "eyeos-amqp": "*",
     "eyeos-mongo": "*",
     "eyeos-consume-service": "*",
     "eyeos-service-ready-notify": "*",
     "eyeos-stomp": "*",
     "eyeos-usernotification": "*",
-    "log2out": "*",
-    "eyeos-hooks": "*"
+    "log2out": "*"
   },
   "devDependencies": {
     "chai": "1.8.0",
@@ -31,7 +29,9 @@
     "grunt-mocha-test": "0.11.0",
     "eyeos-hippie": "*",
     "eyeos-gruntfile": "*",
-    "eyeos-component-tests": "*"
+    "eyeos-component-tests": "*",
+    "bus-expectation": "*",
+    "eyeos-hooks": "*"
   },
   "microservices": [
     "mongo.service.consul:27017",
